@@ -101,7 +101,7 @@ namespace PageParsing
 
                             //강의 정렬 시작점 450, 1시간 마다 50씩 증가 하는것 같음.
                             lecture.iTop = iTop;
-                            Console.WriteLine(lecture.szLecturesName + "강의, "+ lecture.iTop);
+                            lecture.iStartTime = 0; //아직은 시작 시간을 모른다;;
                             sLecturesList.Add(lecture);
                         }
                     }
@@ -130,12 +130,77 @@ namespace PageParsing
                 }
                 //시간표 정렬 끝
 
+                //강의 시작 시간 시작
+
+                for (int i = 0; i < sDayLectureList.Count; i++)
+                {
+                    for (int j = 0; j < sDayLectureList[i].sLectureList.Count; j++)
+                    {
+                        sLectures temp = sDayLectureList[i].sLectureList[j];
+
+                        switch (temp.iTop)
+                        {
+                            case 450: //9시
+                                temp.iStartTime = 9;
+                                break;
+                            case 500: //10시
+                                temp.iStartTime = 10;
+                                break;
+                            case 550: //11시
+                                temp.iStartTime = 11;
+                                break;
+                            case 600: //12시
+                                temp.iStartTime = 12;
+                                break;
+                            case 650: //13시
+                                temp.iStartTime = 13;
+                                break;
+                            case 700: //14시
+                                temp.iStartTime = 14;
+                                break;
+                            case 750: //15시
+                                temp.iStartTime = 15;
+                                break;
+                            case 800: //16시
+                                temp.iStartTime = 16;
+                                break;
+                            case 850: //17시
+                                temp.iStartTime = 17;
+                                break;
+                            case 900: //18시
+                                temp.iStartTime = 18;
+                                break;
+                            case 950: //19시
+                                temp.iStartTime = 19;
+                                break;
+                            case 1000: //20시
+                                temp.iStartTime = 20;
+                                break;
+                            case 1050: //21시
+                                temp.iStartTime = 21;
+                                break;
+                            case 1100: //22시
+                                temp.iStartTime = 22;
+                                break;
+                            case 1150: //23시
+                                temp.iStartTime = 23;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        sDayLectureList[i].sLectureList[j] = temp; //마지막에 복사
+                    }
+                }
+
+                //강의 시작 시간 끝
+
                 for (int i = 0; i < sDayLectureList.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}일 차");
                     for (int j = 0; j < sDayLectureList[i].sLectureList.Count; j++)
                     {
-                        Console.WriteLine($"강의 : {sDayLectureList[i].sLectureList[j].szLecturesName}, 교수 : {sDayLectureList[i].sLectureList[j].szProfessor}, 강의실 : {sDayLectureList[i].sLectureList[j].szLectureRoom}, 강의시간 : {sDayLectureList[i].sLectureList[j].iLecturesTime}시간");
+                        Console.WriteLine($"강의 : {sDayLectureList[i].sLectureList[j].szLecturesName}, 교수 : {sDayLectureList[i].sLectureList[j].szProfessor}, 강의실 : {sDayLectureList[i].sLectureList[j].szLectureRoom}, 강의시간 : {sDayLectureList[i].sLectureList[j].iLecturesTime}시간, 시작시간 : {sDayLectureList[i].sLectureList[j].iStartTime}");
                     }
                     Console.WriteLine("");
                 }
@@ -199,6 +264,7 @@ namespace PageParsing
             public string szLectureRoom { get; set; } //강의실 이름
             public int iLecturesTime { get; set; } //강의 진행 시간
             public int iTop { get; set; } //강의 순서를 정렬하기 위해..
+            public int iStartTime { get; set; } //강의 시작 시간
 
         }
 

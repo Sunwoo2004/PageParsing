@@ -138,56 +138,7 @@ namespace PageParsing
                     {
                         sLectures temp = sDayLectureList[i].sLectureList[j];
 
-                        switch (temp.iTop)
-                        {
-                            case 450: //9시
-                                temp.iStartTime = 9;
-                                break;
-                            case 500: //10시
-                                temp.iStartTime = 10;
-                                break;
-                            case 550: //11시
-                                temp.iStartTime = 11;
-                                break;
-                            case 600: //12시
-                                temp.iStartTime = 12;
-                                break;
-                            case 650: //13시
-                                temp.iStartTime = 13;
-                                break;
-                            case 700: //14시
-                                temp.iStartTime = 14;
-                                break;
-                            case 750: //15시
-                                temp.iStartTime = 15;
-                                break;
-                            case 800: //16시
-                                temp.iStartTime = 16;
-                                break;
-                            case 850: //17시
-                                temp.iStartTime = 17;
-                                break;
-                            case 900: //18시
-                                temp.iStartTime = 18;
-                                break;
-                            case 950: //19시
-                                temp.iStartTime = 19;
-                                break;
-                            case 1000: //20시
-                                temp.iStartTime = 20;
-                                break;
-                            case 1050: //21시
-                                temp.iStartTime = 21;
-                                break;
-                            case 1100: //22시
-                                temp.iStartTime = 22;
-                                break;
-                            case 1150: //23시
-                                temp.iStartTime = 23;
-                                break;
-                            default:
-                                break;
-                        }
+                        temp.iStartTime = GetLectureStartTime(temp.iTop);
 
                         sDayLectureList[i].sLectureList[j] = temp; //마지막에 복사
                     }
@@ -209,6 +160,45 @@ namespace PageParsing
 
             Console.ReadKey();
 
+        }
+
+        static int GetLectureStartTime(int iTop)
+        {
+            switch (iTop)
+            {
+                case 450: //9시
+                    return 9;
+                case 500: //10시
+                    return 10;
+                case 550: //11시
+                    return 11;
+                case 600: //12시
+                    return 12;
+                case 650: //13시
+                    return 13;
+                case 700: //14시
+                    return 14;
+                case 750: //15시
+                    return 15;
+                case 800: //16시
+                    return 16;
+                case 850: //17시
+                    return 17;
+                case 900: //18시
+                    return 18;
+                case 950: //19시
+                    return 19;
+                case 1000: //20시
+                    return 20;
+                case 1050: //21시
+                    return 21;
+                case 1100: //22시
+                    return 22;
+                case 1150: //23시
+                    return 23;
+                default:
+                    return -1;
+            }
         }
 
         static bool FindStyle(HtmlDocument doc, string xPath, out string value)

@@ -151,7 +151,7 @@ namespace PageParsing
                     Console.WriteLine($"{i + 1}일 차");
                     for (int j = 0; j < sDayLectureList[i].sLectureList.Count; j++)
                     {
-                        Console.WriteLine($"강의 : {sDayLectureList[i].sLectureList[j].szLecturesName}, 교수 : {sDayLectureList[i].sLectureList[j].szProfessor}, 강의실 : {sDayLectureList[i].sLectureList[j].szLectureRoom}, 강의시간 : {sDayLectureList[i].sLectureList[j].iLecturesTime}시간, 시작시간 : {sDayLectureList[i].sLectureList[j].iStartTime}");
+                        Console.WriteLine($"강의 : {sDayLectureList[i].sLectureList[j].szLecturesName}, 교수 : {sDayLectureList[i].sLectureList[j].szProfessor}, 강의실 : {sDayLectureList[i].sLectureList[j].szLectureRoom}, 강의시간 : {sDayLectureList[i].sLectureList[j].iLecturesTime}시간, 시작시간 : {sDayLectureList[i].sLectureList[j].iStartTime}시");
                     }
                     Console.WriteLine("");
                 }

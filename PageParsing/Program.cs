@@ -98,7 +98,10 @@ namespace PageParsing
                                     lecture.iLecturesTime = 3;
                                     break;
                             }
-                            lecture.iTop= iTop;
+
+                            //강의 정렬 시작점 450, 1시간 마다 50씩 증가 하는것 같음.
+                            lecture.iTop = iTop;
+                            Console.WriteLine(lecture.szLecturesName + "강의, "+ lecture.iTop);
                             sLecturesList.Add(lecture);
                         }
                     }

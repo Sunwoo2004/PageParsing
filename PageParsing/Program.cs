@@ -61,7 +61,7 @@ namespace PageParsing
                 //시간표 가져오기
                 for (int i = 1; i < 6; i++)
                 {
-                    Console.WriteLine($"{i}번째 날");
+                    //Console.WriteLine($"{i}번째 날");
                     List<sLectures> sLecturesList = new List<sLectures>();
                     for (int j = 1; j < 25; j++)
                     {
@@ -100,27 +100,42 @@ namespace PageParsing
                             }
                             lecture.iTop= iTop;
                             sLecturesList.Add(lecture);
-                            Console.WriteLine(lecture.szLecturesName);
                         }
-
                     }
+                    sDayLectures sDayLectures = new sDayLectures();
+                    sDayLectures.iLectureIDX = i;
+                    sDayLectures.sLectureList = sLecturesList;
+                    sDayLectureList.Add(sDayLectures);
                 }
                 //시간표 가져오기 끝
 
                 //시간표 정렬
-                //for (int i = 0; i < sLectureList.Count - 1; i++)
-                //{
-                //    for (int j = 0; j < sLectureList.Count - i - 1; j++)
-                //    {
-                //        if (sLectureList[j].iTop > sLectureList[j + 1].iTop)
-                //        {
-                //            sLectures temp = sLectureList[j];
-                //            sLectureList[j] = sLectureList[j + 1];
-                //            sLectureList[j + 1] = temp;
-                //        }
-                //    }
-                //}
+                for (int k = 0; k < sDayLectureList.Count; k++)
+                {
+                    for (int i = 0; i < sDayLectureList[k].sLectureList.Count - 1; i++)
+                    {
+                        for (int j = 0; j < sDayLectureList[k].sLectureList.Count - i - 1; j++)
+                        {
+                            if (sDayLectureList[k].sLectureList[j].iTop > sDayLectureList[k].sLectureList[j + 1].iTop)
+                            {
+                                sLectures temp = sDayLectureList[k].sLectureList[j];
+                                sDayLectureList[k].sLectureList[j] = sDayLectureList[k].sLectureList[j + 1];
+                                sDayLectureList[k].sLectureList[j + 1] = temp;
+                            }
+                        }
+                    }
+                }
                 //시간표 정렬 끝
+
+                for (int i = 0; i < sDayLectureList.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}일 차");
+                    for (int j = 0; j < sDayLectureList[i].sLectureList.Count; j++)
+                    {
+                        Console.WriteLine($"강의 : {sDayLectureList[i].sLectureList[j].szLecturesName}, 교수 : {sDayLectureList[i].sLectureList[j].szProfessor}, 강의실 : {sDayLectureList[i].sLectureList[j].szLectureRoom}, 강의시간 : {sDayLectureList[i].sLectureList[j].iLecturesTime}시간");
+                    }
+                    Console.WriteLine("");
+                }
 
             }
 

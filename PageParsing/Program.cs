@@ -17,7 +17,7 @@ namespace PageParsing
     internal class Program
     {
         static string szLink = "";
-        static List<sDayLectures> sDayLectureList = new List<sDayLectures>();
+        static List<data.sDayLectures> sDayLectureList = new List<data.sDayLectures>();
         static void Main(string[] args)
         {
             sDayLectureList.Clear();
@@ -62,7 +62,7 @@ namespace PageParsing
                 for (int i = 1; i < 6; i++)
                 {
                     //Console.WriteLine($"{i}번째 날");
-                    List<sLectures> sLecturesList = new List<sLectures>();
+                    List<data.sLectures> sLecturesList = new List<data.sLectures>();
                     for (int j = 1; j < 25; j++)
                     {
                         string[] szDump = new string[4];
@@ -82,7 +82,7 @@ namespace PageParsing
 
                             int iTop = Convert.ToInt32(Regex.Replace(Regex.Match(szDump[3], @"top:\s*([^;]+)").Groups[1].Value.Trim(), @"px$", ""));
 
-                            sLectures lecture = new sLectures();
+                            data.sLectures lecture = new data.sLectures();
                             lecture.szLecturesName = szDump[0];
                             lecture.szProfessor = szDump[1];
                             lecture.szLectureRoom = szDump[2];
@@ -105,7 +105,7 @@ namespace PageParsing
                             sLecturesList.Add(lecture);
                         }
                     }
-                    sDayLectures sDayLectures = new sDayLectures();
+                    data.sDayLectures sDayLectures = new data.sDayLectures();
                     sDayLectures.iLectureIDX = i;
                     sDayLectures.sLectureList = sLecturesList;
                     sDayLectureList.Add(sDayLectures);
@@ -121,7 +121,7 @@ namespace PageParsing
                         {
                             if (sDayLectureList[k].sLectureList[j].iTop > sDayLectureList[k].sLectureList[j + 1].iTop)
                             {
-                                sLectures temp = sDayLectureList[k].sLectureList[j];
+                                data.sLectures temp = sDayLectureList[k].sLectureList[j];
                                 sDayLectureList[k].sLectureList[j] = sDayLectureList[k].sLectureList[j + 1];
                                 sDayLectureList[k].sLectureList[j + 1] = temp;
                             }
@@ -136,7 +136,7 @@ namespace PageParsing
                 {
                     for (int j = 0; j < sDayLectureList[i].sLectureList.Count; j++)
                     {
-                        sLectures temp = sDayLectureList[i].sLectureList[j];
+                        data.sLectures temp = sDayLectureList[i].sLectureList[j];
 
                         temp.iStartTime = GetLectureStartTime(temp.iTop);
 
@@ -155,6 +155,10 @@ namespace PageParsing
                     }
                     Console.WriteLine("");
                 }
+
+                //추후에 웹 api를 위해 json 
+                json.WriteJson(sDayLectureList); //여기로 들어가면 복사를 너무 많이하긴 한다. 수정필요
+                //json 끝
 
             }
 
@@ -241,22 +245,5 @@ namespace PageParsing
 
             return false;
         }
-
-        struct sDayLectures
-        {
-            public int iLectureIDX { get; set; } //강의 날짜 인덱스
-            public List<sLectures> sLectureList { get; set; }
-        }
-        struct sLectures
-        { 
-            public string szLecturesName { get; set; } //강의 이름
-            public string szProfessor { get; set; } //교수 이름
-            public string szLectureRoom { get; set; } //강의실 이름
-            public int iLecturesTime { get; set; } //강의 진행 시간
-            public int iTop { get; set; } //강의 순서를 정렬하기 위해..
-            public int iStartTime { get; set; } //강의 시작 시간
-
-        }
-
     }
 }

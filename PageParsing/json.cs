@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.IO;
 using System.Threading;
+using OpenQA.Selenium.Internal;
 
 namespace PageParsing
 {
@@ -27,11 +28,23 @@ namespace PageParsing
         {
             JObject json = new JObject();
 
-            JObject dbSpec2 = new JObject(
-                new JProperty("3", "c"),
-                new JProperty("4", "d")
+            for (int i = 0; i < sDayLectureList.Count; i++)
+            {
+                for (int j = 0; j < sDayLectureList[i].sLectureList.Count; j++)
+                {
+                    JObject addjson = new JObject(
+                        new JProperty($"Day{i}_{j}", $"{i + 1}"), //1일부터 5일까지 있음 월 ~ 금
+                        new JProperty($"LecturesName{i}_{j}", $"{sDayLectureList[i].sLectureList[j].szLecturesName}"),
+                        new JProperty($"Professor{i}_{j}", $"{sDayLectureList[i].sLectureList[j].szProfessor}"),
+                        new JProperty($"LectureRoom{i}_{j}", $"{sDayLectureList[i].sLectureList[j].szLectureRoom}"),
+                        new JProperty($"LecturesTime{i}_{j}", $"{sDayLectureList[i].sLectureList[j].iLecturesTime}"),
+                        new JProperty($"StartTime{i}_{j}", $"{sDayLectureList[i].sLectureList[j].iStartTime}")
                 );
-            json.Merge(dbSpec2);
+                    json.Merge(addjson);
+                }
+            }
+            
+            
 
             File.WriteAllText(szJsonPath, json.ToString());
         }
